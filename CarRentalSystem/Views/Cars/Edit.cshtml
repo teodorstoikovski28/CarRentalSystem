@@ -32,6 +32,12 @@
     </div>
 
     <div>
+        <label asp-for="CategoryId"></label>
+        <select asp-for="CategoryId" asp-items="ViewBag.Categories">
+        </select>
+    </div>
+
+    <div>
         <label asp-for="IsAvailable"></label>
         <input asp-for="IsAvailable" type="checkbox" />
     </div>

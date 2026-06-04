@@ -16,6 +16,7 @@
             <th>Brand</th>
             <th>Model</th>
             <th>Year</th>
+            <th>Category</th>
             <th>Price Per Day</th>
             <th>Actions</th>
         </tr>
@@ -27,13 +28,14 @@
                 <td>@car.Brand</td>
                 <td>@car.Model</td>
                 <td>@car.Year</td>
+                <td>@car.Category?.Name</td>
                 <td>@car.PricePerDay</td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@car.Id">Details</a> |
-                    <a asp-action="Edit" asp-route-id="@car.Id">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@car.Id">Delete</a>
+                    <a asp-action="Details" asp-route-id="@car.Id" class="btn btn-info">Details</a>
+                    <a asp-action="Edit" asp-route-id="@car.Id" class="btn btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@car.Id" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         }
     </tbody>
-</table>    
+</table>

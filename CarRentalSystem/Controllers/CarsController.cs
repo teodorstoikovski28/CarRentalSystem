@@ -1,6 +1,9 @@
-﻿using CarRentalSystem.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using CarRentalSystem.Data;
 using CarRentalSystem.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarRentalSystem.Controllers
 {
@@ -15,7 +18,9 @@ namespace CarRentalSystem.Controllers
 
         public IActionResult Index()
         {
-            var cars = context.Cars.ToList();
+            var cars = context.Cars
+                .Include(c => c.Category)
+                .ToList();
 
             return View(cars);
         }
@@ -34,6 +39,14 @@ namespace CarRentalSystem.Controllers
 
         public IActionResult Create()
         {
+            ViewBag.Categories = context.Categories
+                .Select(c => new SelectListItem
+                {
+                    Value = c.Id.ToString(),
+                    Text = c.Name
+                })
+                .ToList();
+
             return View();
         }
 
@@ -42,6 +55,14 @@ namespace CarRentalSystem.Controllers
         {
             if (!ModelState.IsValid)
             {
+                ViewBag.Categories = context.Categories
+                    .Select(c => new SelectListItem
+                    {
+                        Value = c.Id.ToString(),
+                        Text = c.Name
+                    })
+                    .ToList();
+
                 return View(car);
             }
 
@@ -60,6 +81,14 @@ namespace CarRentalSystem.Controllers
                 return NotFound();
             }
 
+            ViewBag.Categories = context.Categories
+                .Select(c => new SelectListItem
+                {
+                    Value = c.Id.ToString(),
+                    Text = c.Name
+                })
+                .ToList();
+
             return View(car);
         }
 
@@ -68,6 +97,14 @@ namespace CarRentalSystem.Controllers
         {
             if (!ModelState.IsValid)
             {
+                ViewBag.Categories = context.Categories
+                    .Select(c => new SelectListItem
+                    {
+                        Value = c.Id.ToString(),
+                        Text = c.Name
+                    })
+                    .ToList();
+
                 return View(car);
             }
 
