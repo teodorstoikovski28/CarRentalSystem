@@ -1,0 +1,13 @@
+﻿@model CarRentalSystem.Models.Car
+
+<h2>Car Details</h2>
+
+<div>
+    <p><strong>Brand:</strong> @Model.Brand</p>
+    <p><strong>Model:</strong> @Model.Model</p>
+    <p><strong>Year:</strong> @Model.Year</p>
+    <p><strong>Price Per Day:</strong> @Model.PricePerDay</p>
+    <p><strong>Available:</strong> @Model.IsAvailable</p>
+</div>
+
+<a asp-action="Index" class="btn btn-secondary">Back</a>

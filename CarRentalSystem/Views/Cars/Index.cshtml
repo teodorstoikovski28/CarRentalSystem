@@ -1,0 +1,39 @@
+﻿@model IEnumerable<CarRentalSystem.Models.Car>
+
+@{
+    ViewData["Title"] = "Cars";
+}
+
+<h1>Available Cars</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Add Car</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Year</th>
+            <th>Price Per Day</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var car in Model)
+        {
+            <tr>
+                <td>@car.Brand</td>
+                <td>@car.Model</td>
+                <td>@car.Year</td>
+                <td>@car.PricePerDay</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@car.Id">Details</a> |
+                    <a asp-action="Edit" asp-route-id="@car.Id">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@car.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>    
