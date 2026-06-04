@@ -1,6 +1,8 @@
-﻿namespace CarRentalSystem.Models
+﻿namespace CarRentalSystem.Models;
+
+public class Category
 {
-    public class Category
-    {
-    }
+    public int Id { get; set; }
+
+    public string Name { get; set; } = string.Empty;
 }

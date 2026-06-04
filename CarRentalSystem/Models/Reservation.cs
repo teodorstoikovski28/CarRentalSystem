@@ -1,6 +1,12 @@
-﻿namespace CarRentalSystem.Models
+﻿namespace CarRentalSystem.Models;
+
+public class Reservation
 {
-    public class Reservation
-    {
-    }
+    public int Id { get; set; }
+
+    public DateTime StartDate { get; set; }
+
+    public DateTime EndDate { get; set; }
+
+    public decimal TotalPrice { get; set; }
 }
