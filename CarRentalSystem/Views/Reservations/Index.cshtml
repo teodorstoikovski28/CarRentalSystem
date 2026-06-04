@@ -1,0 +1,51 @@
+﻿@model IEnumerable<CarRentalSystem.Models.Reservation>
+
+<h2>Reservations</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Add Reservation</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Car</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Total Price</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var reservation in Model)
+        {
+            <tr>
+                <td>@reservation.Car?.Brand @reservation.Car?.Model</td>
+                <td>@reservation.StartDate.ToShortDateString()</td>
+                <td>@reservation.EndDate.ToShortDateString()</td>
+                <td>@reservation.TotalPrice</td>
+
+                <td>
+                    <a asp-action="Details"
+                       asp-route-id="@reservation.Id"
+                       class="btn btn-info">
+                        Details
+                    </a>
+
+                    <a asp-action="Edit"
+                       asp-route-id="@reservation.Id"
+                       class="btn btn-warning">
+                        Edit
+                    </a>
+
+                    <a asp-action="Delete"
+                       asp-route-id="@reservation.Id"
+                       class="btn btn-danger">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

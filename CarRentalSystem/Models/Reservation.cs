@@ -9,4 +9,8 @@ public class Reservation
     public DateTime EndDate { get; set; }
 
     public decimal TotalPrice { get; set; }
+
+    public int CarId { get; set; }
+
+    public Car? Car { get; set; }
 }
