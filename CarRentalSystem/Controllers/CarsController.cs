@@ -10,12 +10,12 @@ namespace CarRentalSystem.Controllers
     {
         private readonly ApplicationDbContext context;
 
-    public CarsController(ApplicationDbContext context)
+        public CarsController(ApplicationDbContext context)
         {
             this.context = context;
         }
 
-        public IActionResult Index(string searchTerm)
+        public IActionResult Index(string searchTerm, string sortOrder)
         {
             var cars = context.Cars
                 .Include(c => c.Category)
@@ -27,6 +27,27 @@ namespace CarRentalSystem.Controllers
                     c.Brand.Contains(searchTerm) ||
                     c.Model.Contains(searchTerm));
             }
+
+            switch (sortOrder)
+            {
+                case "priceAsc":
+                    cars = cars.OrderBy(c => c.PricePerDay);
+                    break;
+
+                case "priceDesc":
+                    cars = cars.OrderByDescending(c => c.PricePerDay);
+                    break;
+
+                case "newest":
+                    cars = cars.OrderByDescending(c => c.Id);
+                    break;
+
+                case "oldest":
+                    cars = cars.OrderBy(c => c.Id);
+                    break;
+            }
+
+            ViewBag.SortOrder = sortOrder;
 
             return View(cars.ToList());
         }
@@ -149,5 +170,4 @@ namespace CarRentalSystem.Controllers
             return RedirectToAction(nameof(Index));
         }
     }
-
 }

@@ -80,6 +80,7 @@ namespace CarRentalSystem.Controllers
 
             ViewBag.CarName = $"{car.Brand} {car.Model}";
             ViewBag.CarImage = car.ImageUrl;
+            ViewBag.PricePerDay = car.PricePerDay;
 
             ViewBag.ReservedPeriods = context.Reservations
                 .Where(r => r.CarId == car.Id)

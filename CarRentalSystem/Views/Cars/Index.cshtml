@@ -18,8 +18,39 @@
                    value="@Context.Request.Query["searchTerm"]" />
         </div>
 
+        <div class="col-md-3">
+            <select name="sortOrder" class="form-select">
+
+                <option value="">
+                    Sort By
+                </option>
+
+                <option value="priceAsc"
+                        selected="@(ViewBag.SortOrder == "priceAsc")">
+                    Price: Low to High
+                </option>
+
+                <option value="priceDesc"
+                        selected="@(ViewBag.SortOrder == "priceDesc")">
+                    Price: High to Low
+                </option>
+
+                <option value="newest"
+                        selected="@(ViewBag.SortOrder == "newest")">
+                    Newest Added
+                </option>
+
+                <option value="oldest"
+                        selected="@(ViewBag.SortOrder == "oldest")">
+                    Oldest Added
+                </option>
+
+            </select>
+        </div>
+
         <div class="col-md-2">
-            <button type="submit" class="btn btn-primary">
+            <button type="submit"
+                    class="btn btn-primary">
                 Search
             </button>
         </div>

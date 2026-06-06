@@ -97,6 +97,29 @@
 
                 </div>
 
+                <div class="alert alert-info mb-4">
+
+                    <h5>
+                        Price Preview
+                    </h5>
+
+                    <p>
+                        Days:
+                        <span id="daysCount">0</span>
+                    </p>
+
+                    <p>
+                        Price Per Day:
+                        €<span id="pricePerDay">@ViewBag.PricePerDay</span>
+                    </p>
+
+                    <p class="fw-bold">
+                        Total:
+                        €<span id="totalPrice">0</span>
+                    </p>
+
+                </div>
+
                 <div class="mb-4">
 
                     <label class="form-label">
@@ -153,6 +176,37 @@
     const endDate =
         document.getElementById("endDate");
 
+    const pricePerDay =
+        parseFloat(document.getElementById("pricePerDay").innerText);
+
+    function calculatePrice()
+    {
+        if (!startDate.value || !endDate.value)
+        {
+            return;
+        }
+
+        const start =
+            new Date(startDate.value);
+
+        const end =
+            new Date(endDate.value);
+
+        let days =
+            Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+
+        if (days < 1)
+        {
+            days = 1;
+        }
+
+        document.getElementById("daysCount").innerText =
+            days;
+
+        document.getElementById("totalPrice").innerText =
+            (days * pricePerDay).toFixed(2);
+    }
+
     startDate.addEventListener("change", function () {
 
         endDate.min = this.value;
@@ -161,6 +215,10 @@
         {
             endDate.value = this.value;
         }
+
+        calculatePrice();
     });
+
+    endDate.addEventListener("change", calculatePrice);
 
 </script>
