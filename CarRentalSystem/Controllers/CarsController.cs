@@ -18,8 +18,9 @@ namespace CarRentalSystem.Controllers
         public IActionResult Index(string searchTerm, string sortOrder)
         {
             var cars = context.Cars
-                .Include(c => c.Category)
-                .AsQueryable();
+    .Include(c => c.Category)
+    .Include(c => c.Reservations)
+    .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {

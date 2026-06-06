@@ -136,7 +136,7 @@ namespace CarRentalSystem.Controllers
 
             if (car != null)
             {
-                var days = (reservation.EndDate - reservation.StartDate).Days;
+                var days = (reservation.EndDate - reservation.StartDate).Days + 1;
 
                 if (days < 1)
                 {
@@ -203,7 +203,7 @@ namespace CarRentalSystem.Controllers
 
             if (car != null)
             {
-                var days = (reservation.EndDate - reservation.StartDate).Days;
+                var days = (reservation.EndDate - reservation.StartDate).Days + 1;
 
                 if (days < 1)
                 {

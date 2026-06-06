@@ -99,10 +99,29 @@
                         @car.Year
                     </p>
 
-                    <p>
-                        <strong>Available:</strong>
-                        @(car.IsAvailable ? "Yes" : "No")
-                    </p>
+                    @{
+                        var currentlyReserved =
+                            car.Reservations.Any(r =>
+                                DateTime.Today >= r.StartDate.Date &&
+                                DateTime.Today <= r.EndDate.Date);
+                    }
+
+                    @if (currentlyReserved)
+                    {
+                        <p>
+                            <span class="badge bg-danger">
+                                Currently Reserved
+                            </span>
+                        </p>
+                    }
+                    else
+                    {
+                        <p>
+                            <span class="badge bg-success">
+                                Available Now
+                            </span>
+                        </p>
+                    }
 
                 </div>
 
