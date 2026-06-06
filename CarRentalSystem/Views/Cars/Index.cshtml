@@ -1,0 +1,126 @@
+﻿@model IEnumerable<CarRentalSystem.Models.Car>
+
+@{
+    ViewData["Title"] = "Cars";
+}
+
+<h1>Available Cars</h1>
+
+<form method="get" asp-action="Index" class="mb-4">
+
+    <div class="row">
+
+        <div class="col-md-4">
+            <input type="text"
+                   name="searchTerm"
+                   class="form-control"
+                   placeholder="Search by brand or model..."
+                   value="@Context.Request.Query["searchTerm"]" />
+        </div>
+
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary">
+                Search
+            </button>
+        </div>
+
+    </div>
+
+</form>
+
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create" class="btn btn-primary">
+            Add Car
+        </a>
+    </p>
+}
+
+<div class="container">
+
+    @foreach (var car in Model)
+    {
+        <div class="card shadow-sm mb-4 p-3">
+
+            <div class="row align-items-center">
+
+                <div class="col-md-3">
+
+                    <img src="@car.ImageUrl"
+                         alt="@car.Brand"
+                         class="img-fluid rounded"
+                         style="height:180px;width:100%;object-fit:cover;" />
+
+                </div>
+
+                <div class="col-md-5">
+
+                    <h2>@car.Brand @car.Model</h2>
+
+                    <p>
+                        <strong>Category:</strong>
+                        @car.Category?.Name
+                    </p>
+
+                    <p>
+                        <strong>Year:</strong>
+                        @car.Year
+                    </p>
+
+                    <p>
+                        <strong>Available:</strong>
+                        @(car.IsAvailable ? "Yes" : "No")
+                    </p>
+
+                </div>
+
+                <div class="col-md-4 text-end">
+
+                    <div class="fs-1 fw-bold text-success">
+                        €@car.PricePerDay
+                    </div>
+
+                    <div class="text-muted mb-3">
+                        per day
+                    </div>
+
+                    <a asp-action="Details"
+                       asp-route-id="@car.Id"
+                       class="btn btn-info">
+                        Details
+                    </a>
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Edit"
+                           asp-route-id="@car.Id"
+                           class="btn btn-warning">
+                            Edit
+                        </a>
+
+                        <a asp-action="Delete"
+                           asp-route-id="@car.Id"
+                           class="btn btn-danger">
+                            Delete
+                        </a>
+                    }
+
+                    @if (User.IsInRole("User"))
+                    {
+                        <a asp-controller="Reservations"
+                           asp-action="Create"
+                           asp-route-carId="@car.Id"
+                           class="btn btn-success">
+                            Rent
+                        </a>
+                    }
+
+                </div>
+
+            </div>
+
+        </div>
+    }
+
+</div>

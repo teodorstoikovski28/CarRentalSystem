@@ -1,0 +1,47 @@
+﻿@model CarRentalSystem.Models.Car
+
+<h2>Create Car</h2>
+
+<form asp-action="Create" method="post">
+
+    <div>
+        <label asp-for="Brand"></label>
+        <input asp-for="Brand" />
+    </div>
+
+    <div>
+        <label asp-for="Model"></label>
+        <input asp-for="Model" />
+    </div>
+
+    <div>
+        <label asp-for="Year"></label>
+        <input asp-for="Year" />
+    </div>
+
+    <div>
+        <label asp-for="PricePerDay"></label>
+        <input asp-for="PricePerDay" />
+    </div>
+
+    <div>
+        <label asp-for="ImageUrl"></label>
+        <input asp-for="ImageUrl" />
+    </div>
+
+    <div>
+        <label asp-for="CategoryId"></label>
+        <select asp-for="CategoryId" asp-items="ViewBag.Categories">
+        </select>
+    </div>
+
+    <div>
+        <label asp-for="IsAvailable"></label>
+        <input asp-for="IsAvailable" type="checkbox" />
+    </div>
+
+    <button type="submit">Create</button>
+
+</form>
+
+<a asp-action="Index">Back</a>

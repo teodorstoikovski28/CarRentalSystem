@@ -1,0 +1,64 @@
+﻿@model IEnumerable<CarRentalSystem.Models.Payment>
+
+<h2>Payments</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">
+        Add Payment
+    </a>
+</p>
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>Car</th>
+            <th>Rental Period</th>
+            <th>Method</th>
+            <th>Amount</th>
+            <th>Payment Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var payment in Model)
+        {
+            <tr>
+                <td>
+                    @payment.Reservation?.Car?.Brand
+                    @payment.Reservation?.Car?.Model
+                </td>
+
+                <td>
+                    @payment.Reservation?.StartDate.ToString("dd/MM/yyyy")
+                    -
+                    @payment.Reservation?.EndDate.ToString("dd/MM/yyyy")
+                </td>
+
+                <td>@payment.PaymentMethod</td>
+
+                <td>@payment.Amount</td>
+
+                <td>@payment.PaymentDate.ToString("dd/MM/yyyy HH:mm")</td>
+
+                <td>
+                    <a asp-action="Details"
+                       asp-route-id="@payment.Id"
+                       class="btn btn-info">
+                        Details
+                    </a>
+
+                    <a asp-action="Delete"
+                       asp-route-id="@payment.Id"
+                       class="btn btn-danger">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+
+</table>

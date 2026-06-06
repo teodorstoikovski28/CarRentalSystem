@@ -1,0 +1,43 @@
+﻿@model CarRentalSystem.Models.Payment
+
+<h2>Create Payment</h2>
+
+<form asp-action="Create" method="post">
+
+    <div>
+        <label>Reservation</label>
+        <select asp-for="ReservationId" asp-items="ViewBag.Reservations">
+        </select>
+    </div>
+
+    <br />
+
+    <div>
+        <label>Payment Method</label>
+        <select asp-for="PaymentMethod">
+            <option value="Cash">Cash</option>
+            <option value="Card">Card</option>
+            <option value="Bank Transfer">Bank Transfer</option>
+        </select>
+    </div>
+
+    <br />
+
+    <div>
+        <label asp-for="Amount"></label>
+        <input asp-for="Amount" />
+    </div>
+
+    <br />
+
+    <button type="submit" class="btn btn-success">
+        Create Payment
+    </button>
+
+</form>
+
+<br />
+
+<a asp-action="Index" class="btn btn-secondary">
+    Back
+</a>

@@ -1,0 +1,35 @@
+﻿@model CarRentalSystem.Models.Payment
+
+<h2>Payment Details</h2>
+
+<div>
+    <strong>Reservation Id:</strong>
+    @Model.ReservationId
+</div>
+
+<br />
+
+<div>
+    <strong>Payment Method:</strong>
+    @Model.PaymentMethod
+</div>
+
+<br />
+
+<div>
+    <strong>Amount:</strong>
+    @Model.Amount
+</div>
+
+<br />
+
+<div>
+    <strong>Payment Date:</strong>
+    @Model.PaymentDate
+</div>
+
+<br />
+
+<a asp-action="Index" class="btn btn-secondary">
+    Back
+</a>
