@@ -151,6 +151,7 @@ namespace CarRentalSystem.Migrations
                     b.ToTable("Categories");
                 });
 
+ 
             modelBuilder.Entity("CarRentalSystem.Models.Payment", b =>
                 {
                     b.Property<int>("Id")
@@ -180,6 +181,8 @@ namespace CarRentalSystem.Migrations
                     b.ToTable("Payments");
                 });
 
+
+ 
             modelBuilder.Entity("CarRentalSystem.Models.Reservation", b =>
                 {
                     b.Property<int>("Id")
@@ -194,9 +197,12 @@ namespace CarRentalSystem.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
+ 
                     b.Property<string>("PaymentMethod")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
@@ -204,16 +210,22 @@ namespace CarRentalSystem.Migrations
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18,2)");
 
+ 
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+
+ 
                     b.HasKey("Id");
 
                     b.HasIndex("CarId");
 
+ 
                     b.HasIndex("UserId");
 
+
+ 
                     b.ToTable("Reservations");
                 });
 
@@ -381,6 +393,7 @@ namespace CarRentalSystem.Migrations
                     b.Navigation("Category");
                 });
 
+ 
             modelBuilder.Entity("CarRentalSystem.Models.Payment", b =>
                 {
                     b.HasOne("CarRentalSystem.Models.Reservation", "Reservation")
@@ -392,6 +405,8 @@ namespace CarRentalSystem.Migrations
                     b.Navigation("Reservation");
                 });
 
+
+ 
             modelBuilder.Entity("CarRentalSystem.Models.Reservation", b =>
                 {
                     b.HasOne("CarRentalSystem.Models.Car", "Car")
@@ -400,6 +415,7 @@ namespace CarRentalSystem.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+ 
                     b.HasOne("CarRentalSystem.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
@@ -409,6 +425,8 @@ namespace CarRentalSystem.Migrations
                     b.Navigation("Car");
 
                     b.Navigation("User");
+
+                    b.Navigation("Car");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -461,6 +479,7 @@ namespace CarRentalSystem.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
+ 
 
             modelBuilder.Entity("CarRentalSystem.Models.Reservation", b =>
                 {

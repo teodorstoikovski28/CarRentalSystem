@@ -1,4 +1,4 @@
-﻿using System.Security.Claims;
+using System.Security.Claims;
 using CarRentalSystem.Data;
 using CarRentalSystem.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -135,16 +135,14 @@ namespace CarRentalSystem.Controllers
 
             if (car != null)
             {
-                var days =
-                    (reservation.EndDate - reservation.StartDate).Days;
+                var days = (reservation.EndDate - reservation.StartDate).Days;
 
                 if (days < 1)
                 {
                     days = 1;
                 }
 
-                reservation.TotalPrice =
-                    days * car.PricePerDay;
+                reservation.TotalPrice = days * car.PricePerDay;
             }
 
             context.Reservations.Add(reservation);
