@@ -1,13 +1,98 @@
-﻿@model CarRentalSystem.Models.Car
+﻿
+@model CarRentalSystem.Models.Car
 
-<h2>Car Details</h2>
+@{
+    var currentlyReserved =
+        Model.Reservations.Any(r =>
+            DateTime.Today >= r.StartDate.Date &&
+            DateTime.Today <= r.EndDate.Date);
+}
 
-<div>
-    <p><strong>Brand:</strong> @Model.Brand</p>
-    <p><strong>Model:</strong> @Model.Model</p>
-    <p><strong>Year:</strong> @Model.Year</p>
-    <p><strong>Price Per Day:</strong> @Model.PricePerDay</p>
-    <p><strong>Available:</strong> @Model.IsAvailable</p>
+<div class="container">
+
+    <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+
+        <div class="row g-0">
+
+            <div class="col-md-6">
+
+                <img src="@Model.ImageUrl"
+                     alt="@Model.Brand"
+                     class="img-fluid w-100"
+                     style="height:500px;object-fit:cover;" />
+
+            </div>
+
+            <div class="col-md-6">
+
+                <div class="card-body p-5">
+
+                    <h1 class="fw-bold mb-3">
+                        @Model.Brand @Model.Model
+                    </h1>
+
+                    <p class="text-muted fs-5">
+                        @Model.Category?.Name
+                    </p>
+
+                    @if (currentlyReserved)
+                    {
+                        <span class="badge bg-danger fs-6 mb-4">
+                            🔴 Currently Reserved
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-success fs-6 mb-4">
+                            🟢 Available Now
+                        </span>
+                    }
+
+                    <hr />
+
+                    <p class="fs-5">
+                        <strong>Year:</strong>
+                        @Model.Year
+                    </p>
+
+                    <p class="fs-5">
+                        <strong>Category:</strong>
+                        @Model.Category?.Name
+                    </p>
+
+                    <div class="display-4 fw-bold text-success my-4">
+                        €@Model.PricePerDay
+                        <span class="fs-5 text-muted">
+                            / day
+                        </span>
+                    </div>
+
+                    <div class="d-flex gap-2 mt-4">
+
+                        @if (User.IsInRole("User"))
+                        {
+                            <a asp-controller="Reservations"
+                               asp-action="Create"
+                               asp-route-carId="@Model.Id"
+                               class="btn btn-success btn-lg">
+                                Rent Now
+                            </a>
+                        }
+
+                        <a asp-action="Index"
+                           class="btn btn-secondary btn-lg">
+                            Back
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
 
-<a asp-action="Index" class="btn btn-secondary">Back</a>

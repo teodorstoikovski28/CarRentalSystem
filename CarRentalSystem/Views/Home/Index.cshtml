@@ -1,8 +1,146 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿
+@{
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container">
+
+    <div class="card border-0 shadow-lg overflow-hidden mb-5">
+
+        <div style="
+            background-image:url('/images/banner.jpg');
+            background-size:cover;
+            background-position:center;
+            height:500px;
+            position:relative;">
+
+            <div style="
+                position:absolute;
+                inset:0;
+                background:rgba(0,0,0,0.55);
+                display:flex;
+                justify-content:center;
+                align-items:center;
+                flex-direction:column;
+                text-align:center;
+                color:white;">
+
+                <h1 class="display-2 fw-bold">
+                    Premium Car Rental
+                </h1>
+
+                <p class="lead fs-3">
+                    Find Your Perfect Vehicle Today
+                </p>
+
+                <div class="mt-4">
+
+                    <a asp-controller="Cars"
+                       asp-action="Index"
+                       class="btn btn-success btn-lg me-2">
+                        Browse Cars
+                    </a>
+
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <a asp-controller="Reservations"
+                           asp-action="Index"
+                           class="btn btn-outline-light btn-lg">
+                            My Reservations
+                        </a>
+                    }
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row text-center g-4">
+
+        <div class="col-md-3">
+
+            <div class="card border-0 shadow h-100">
+                <div class="card-body">
+
+                    <h1>🚗</h1>
+
+                    <h4>
+                        Luxury Cars
+                    </h4>
+
+                    <p>
+                        Premium vehicles for every occasion.
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card border-0 shadow h-100">
+                <div class="card-body">
+
+                    <h1>⚡</h1>
+
+                    <h4>
+                        Electric Cars
+                    </h4>
+
+                    <p>
+                        Modern and eco-friendly driving.
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card border-0 shadow h-100">
+                <div class="card-body">
+
+                    <h1>🏎️</h1>
+
+                    <h4>
+                        Sports Cars
+                    </h4>
+
+                    <p>
+                        Experience maximum performance.
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card border-0 shadow h-100">
+                <div class="card-body">
+
+                    <h1>🛡️</h1>
+
+                    <h4>
+                        24/7 Support
+                    </h4>
+
+                    <p>
+                        We're always here to help.
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
+

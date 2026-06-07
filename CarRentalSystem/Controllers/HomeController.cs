@@ -6,7 +6,7 @@ namespace CarRentalSystem.Controllers
     {
         public IActionResult Index()
         {
-            return RedirectToAction("Index", "Cars");
+            return View();
         }
 
         public IActionResult Privacy()

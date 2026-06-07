@@ -55,7 +55,10 @@ namespace CarRentalSystem.Controllers
 
         public IActionResult Details(int id)
         {
-            var car = context.Cars.FirstOrDefault(x => x.Id == id);
+            var car = context.Cars
+    .Include(c => c.Category)
+    .Include(c => c.Reservations)
+    .FirstOrDefault(x => x.Id == id);
 
             if (car == null)
             {
