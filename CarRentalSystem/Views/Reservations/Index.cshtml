@@ -1,22 +1,39 @@
 ﻿@model IEnumerable<CarRentalSystem.Models.Reservation>
 
+@{
+    var today = DateTime.Today;
+
+    var currentReservations = Model
+        .Where(r => today >= r.StartDate.Date &&
+                    today <= r.EndDate.Date)
+        .ToList();
+
+    var upcomingReservations = Model
+        .Where(r => r.StartDate.Date > today)
+        .ToList();
+
+    var pastReservations = Model
+        .Where(r => r.EndDate.Date < today)
+        .ToList();
+}
+
 <h2>My Reservations</h2>
 
 @if (User.IsInRole("User"))
 {
-    <p>
-        Here are your reservations.
-    </p>
+    <p>Here are your reservations.</p>
 }
 
 @if (User.IsInRole("Admin"))
 {
-    <p>
-        Admin view - all reservations.
-    </p>
+    <p>Admin view - all reservations.</p>
 }
 
-<table class="table">
+<h3 class="mt-4 text-success">
+    🟢 Current Reservations
+</h3>
+
+<table class="table table-bordered">
     <thead>
         <tr>
             <th>Car</th>
@@ -29,7 +46,45 @@
     </thead>
 
     <tbody>
-        @foreach (var reservation in Model)
+        @foreach (var reservation in currentReservations)
+        {
+            <tr>
+                <td>@reservation.Car?.Brand @reservation.Car?.Model</td>
+                <td>@reservation.StartDate.ToShortDateString()</td>
+                <td>@reservation.EndDate.ToShortDateString()</td>
+                <td>@reservation.TotalPrice €</td>
+                <td>@reservation.PaymentMethod</td>
+
+                <td>
+                    <a asp-action="Details"
+                       asp-route-id="@reservation.Id"
+                       class="btn btn-info">
+                        Details
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3 class="mt-5 text-primary">
+    📅 Upcoming Reservations
+</h3>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Car</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Total Price</th>
+            <th>Payment Method</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var reservation in upcomingReservations)
         {
             <tr>
                 <td>@reservation.Car?.Brand @reservation.Car?.Model</td>
@@ -55,6 +110,44 @@
                        asp-route-id="@reservation.Id"
                        class="btn btn-danger">
                         Cancel Reservation
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3 class="mt-5 text-secondary">
+    📚 Past Reservations
+</h3>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Car</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Total Price</th>
+            <th>Payment Method</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var reservation in pastReservations)
+        {
+            <tr>
+                <td>@reservation.Car?.Brand @reservation.Car?.Model</td>
+                <td>@reservation.StartDate.ToShortDateString()</td>
+                <td>@reservation.EndDate.ToShortDateString()</td>
+                <td>@reservation.TotalPrice €</td>
+                <td>@reservation.PaymentMethod</td>
+
+                <td>
+                    <a asp-action="Details"
+                       asp-route-id="@reservation.Id"
+                       class="btn btn-info">
+                        Details
                     </a>
                 </td>
             </tr>
