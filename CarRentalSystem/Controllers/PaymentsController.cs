@@ -1,4 +1,6 @@
-﻿using CarRentalSystem.Data;
+﻿
+using System.Security.Claims;
+using CarRentalSystem.Data;
 using CarRentalSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -20,9 +22,18 @@ namespace CarRentalSystem.Controllers
             var payments = context.Payments
                 .Include(p => p.Reservation)
                 .ThenInclude(r => r.Car)
-                .ToList();
+                .AsQueryable();
 
-            return View(payments);
+            if (!User.IsInRole("Admin"))
+            {
+                var userId =
+                    User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                payments = payments.Where(p =>
+                    p.Reservation!.UserId == userId);
+            }
+
+            return View(payments.ToList());
         }
 
         public IActionResult Create()
@@ -70,6 +81,17 @@ namespace CarRentalSystem.Controllers
                 return NotFound();
             }
 
+            if (!User.IsInRole("Admin"))
+            {
+                var userId =
+                    User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                if (payment.Reservation?.UserId != userId)
+                {
+                    return Unauthorized();
+                }
+            }
+
             return View(payment);
         }
 
@@ -85,6 +107,17 @@ namespace CarRentalSystem.Controllers
                 return NotFound();
             }
 
+            if (!User.IsInRole("Admin"))
+            {
+                var userId =
+                    User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                if (payment.Reservation?.UserId != userId)
+                {
+                    return Unauthorized();
+                }
+            }
+
             return View(payment);
         }
 
@@ -92,11 +125,24 @@ namespace CarRentalSystem.Controllers
         [ActionName("Delete")]
         public IActionResult DeleteConfirmed(int id)
         {
-            var payment = context.Payments.Find(id);
+            var payment = context.Payments
+                .Include(p => p.Reservation)
+                .FirstOrDefault(p => p.Id == id);
 
             if (payment == null)
             {
                 return NotFound();
+            }
+
+            if (!User.IsInRole("Admin"))
+            {
+                var userId =
+                    User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                if (payment.Reservation?.UserId != userId)
+                {
+                    return Unauthorized();
+                }
             }
 
             context.Payments.Remove(payment);

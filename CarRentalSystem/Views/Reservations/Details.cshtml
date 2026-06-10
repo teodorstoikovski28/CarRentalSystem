@@ -1,38 +1,125 @@
-﻿@model CarRentalSystem.Models.Reservation
+﻿
+@model CarRentalSystem.Models.Reservation
 
-<h2>Reservation Details</h2>
+@{
+    ViewData["Title"] = "Reservation Details";
+}
 
-<div>
-    <h4>Reservation</h4>
-    <hr />
+<div class="container">
 
-    <dl class="row">
-        <dt class="col-sm-2">Car</dt>
-        <dd class="col-sm-10">
-            @Model.Car?.Brand @Model.Car?.Model
-        </dd>
+    <div class="row justify-content-center">
 
-        <dt class="col-sm-2">Start Date</dt>
-        <dd class="col-sm-10">
-            @Model.StartDate.ToShortDateString()
-        </dd>
+        <div class="col-md-8">
 
-        <dt class="col-sm-2">End Date</dt>
-        <dd class="col-sm-10">
-            @Model.EndDate.ToShortDateString()
-        </dd>
+            <div class="card border-0 shadow-lg rounded-4">
 
-        <dt class="col-sm-2">Total Price</dt>
-        <dd class="col-sm-10">
-            @Model.TotalPrice
-        </dd>
-    </dl>
+                <div class="card-header bg-primary text-white">
+
+                    <h3 class="mb-0">
+                        📅 Reservation Details
+                    </h3>
+
+                </div>
+
+                <div class="card-body p-4">
+
+                    <div class="row mb-4">
+
+                        <div class="col-md-6">
+
+                            <h6 class="text-muted">
+                                Car
+                            </h6>
+
+                            <h4 class="fw-bold">
+                                @Model.Car?.Brand @Model.Car?.Model
+                            </h4>
+
+                        </div>
+
+                        <div class="col-md-6 text-md-end">
+
+                            <h6 class="text-muted">
+                                Reservation ID
+                            </h6>
+
+                            <h4>
+                                #@Model.Id
+                            </h4>
+
+                        </div>
+
+                    </div>
+
+                    <hr />
+
+                    <div class="row mb-4">
+
+                        <div class="col-md-4">
+
+                            <h6 class="text-muted">
+                                Start Date
+                            </h6>
+
+                            <h5>
+                                @Model.StartDate.ToString("dd/MM/yyyy")
+                            </h5>
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <h6 class="text-muted">
+                                End Date
+                            </h6>
+
+                            <h5>
+                                @Model.EndDate.ToString("dd/MM/yyyy")
+                            </h5>
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <h6 class="text-muted">
+                                Total Price
+                            </h6>
+
+                            <h3 class="text-success fw-bold">
+                                €@Model.TotalPrice
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                    <hr />
+
+                    <div class="d-flex gap-2">
+
+                        @if (Model.StartDate.Date > DateTime.Today)
+                        {
+                            <a asp-action="Edit"
+                               asp-route-id="@Model.Id"
+                               class="btn btn-warning">
+                                Edit Reservation
+                            </a>
+                        }
+
+                        <a asp-action="Index"
+                           class="btn btn-secondary">
+                            Back
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
 
-<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
-    Edit
-</a>
-
-<a asp-action="Index" class="btn btn-secondary">
-    Back
-</a>

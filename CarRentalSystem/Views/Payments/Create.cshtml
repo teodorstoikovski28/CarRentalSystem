@@ -1,43 +1,101 @@
-﻿@model CarRentalSystem.Models.Payment
+﻿
+@model CarRentalSystem.Models.Payment
 
-<h2>Create Payment</h2>
+@{
+    ViewData["Title"] = "Create Payment";
+}
 
-<form asp-action="Create" method="post">
+<div class="container">
 
-    <div>
-        <label>Reservation</label>
-        <select asp-for="ReservationId" asp-items="ViewBag.Reservations">
-        </select>
+    <div class="row justify-content-center">
+
+        <div class="col-md-7">
+
+            <div class="card border-0 shadow-lg rounded-4">
+
+                <div class="card-header bg-success text-white">
+
+                    <h3 class="mb-0">
+                        💳 Create Payment
+                    </h3>
+
+                </div>
+
+                <div class="card-body p-4">
+
+                    <form asp-action="Create" method="post">
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Reservation
+                            </label>
+
+                            <select asp-for="ReservationId"
+                                    asp-items="ViewBag.Reservations"
+                                    class="form-select">
+                            </select>
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Payment Method
+                            </label>
+
+                            <select asp-for="PaymentMethod"
+                                    class="form-select">
+
+                                <option value="Cash">
+                                    Cash
+                                </option>
+
+                                <option value="Card">
+                                    Card
+                                </option>
+
+                                <option value="Bank Transfer">
+                                    Bank Transfer
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                        <div class="mb-4">
+
+                            <label asp-for="Amount"
+                                   class="form-label">
+                            </label>
+
+                            <input asp-for="Amount"
+                                   class="form-control" />
+
+                        </div>
+
+                        <div class="d-flex gap-2">
+
+                            <button type="submit"
+                                    class="btn btn-success">
+                                Create Payment
+                            </button>
+
+                            <a asp-action="Index"
+                               class="btn btn-secondary">
+                                Back
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
-    <br />
-
-    <div>
-        <label>Payment Method</label>
-        <select asp-for="PaymentMethod">
-            <option value="Cash">Cash</option>
-            <option value="Card">Card</option>
-            <option value="Bank Transfer">Bank Transfer</option>
-        </select>
-    </div>
-
-    <br />
-
-    <div>
-        <label asp-for="Amount"></label>
-        <input asp-for="Amount" />
-    </div>
-
-    <br />
-
-    <button type="submit" class="btn btn-success">
-        Create Payment
-    </button>
-
-</form>
-
-<br />
-
-<a asp-action="Index" class="btn btn-secondary">
-    Back
-</a>
+</div>

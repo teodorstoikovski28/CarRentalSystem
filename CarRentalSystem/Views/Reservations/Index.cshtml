@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<CarRentalSystem.Models.Reservation>
 
 @{
+    ViewData["Title"] = "Reservations";
+
     var today = DateTime.Today;
 
     var currentReservations = Model
@@ -17,140 +19,267 @@
         .ToList();
 }
 
-<h2>My Reservations</h2>
+<div class="container">
 
-@if (User.IsInRole("User"))
-{
-    <p>Here are your reservations.</p>
-}
+    <h1 class="fw-bold mb-4">
+        Reservations
+    </h1>
 
-@if (User.IsInRole("Admin"))
-{
-    <p>Admin view - all reservations.</p>
-}
+    @if (User.IsInRole("User"))
+    {
+        <div class="alert alert-info">
+            Manage your current, upcoming and past reservations.
+        </div>
+    }
 
-<h3 class="mt-4 text-success">
-    🟢 Current Reservations
-</h3>
+    @if (User.IsInRole("Admin"))
+    {
+        <div class="alert alert-warning">
+            Administrator view - displaying all reservations.
+        </div>
+    }
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Car</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Total Price</th>
-            <th>Payment Method</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
+    <!-- Current Reservations -->
 
-    <tbody>
-        @foreach (var reservation in currentReservations)
-        {
-            <tr>
-                <td>@reservation.Car?.Brand @reservation.Car?.Model</td>
-                <td>@reservation.StartDate.ToShortDateString()</td>
-                <td>@reservation.EndDate.ToShortDateString()</td>
-                <td>@reservation.TotalPrice €</td>
-                <td>@reservation.PaymentMethod</td>
+    <div class="card border-0 shadow mb-5">
 
-                <td>
-                    <a asp-action="Details"
-                       asp-route-id="@reservation.Id"
-                       class="btn btn-info">
-                        Details
-                    </a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+        <div class="card-header bg-success text-white">
 
-<h3 class="mt-5 text-primary">
-    📅 Upcoming Reservations
-</h3>
+            <h4 class="mb-0">
+                🟢 Current Reservations
+            </h4>
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Car</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Total Price</th>
-            <th>Payment Method</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
+        </div>
 
-    <tbody>
-        @foreach (var reservation in upcomingReservations)
-        {
-            <tr>
-                <td>@reservation.Car?.Brand @reservation.Car?.Model</td>
-                <td>@reservation.StartDate.ToShortDateString()</td>
-                <td>@reservation.EndDate.ToShortDateString()</td>
-                <td>@reservation.TotalPrice €</td>
-                <td>@reservation.PaymentMethod</td>
+        <div class="card-body">
 
-                <td>
-                    <a asp-action="Details"
-                       asp-route-id="@reservation.Id"
-                       class="btn btn-info">
-                        Details
-                    </a>
+            <table class="table table-hover align-middle">
 
-                    <a asp-action="Edit"
-                       asp-route-id="@reservation.Id"
-                       class="btn btn-warning">
-                        Edit
-                    </a>
+                <thead>
+                    <tr>
+                        <th>Car</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Total Price</th>
+                        <th>Payment Method</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
 
-                    <a asp-action="Delete"
-                       asp-route-id="@reservation.Id"
-                       class="btn btn-danger">
-                        Cancel Reservation
-                    </a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                <tbody>
 
-<h3 class="mt-5 text-secondary">
-    📚 Past Reservations
-</h3>
+                    @foreach (var reservation in currentReservations)
+                    {
+                        <tr>
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Car</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Total Price</th>
-            <th>Payment Method</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
+                            <td>
+                                <strong>
+                                    @reservation.Car?.Brand
+                                    @reservation.Car?.Model
+                                </strong>
+                            </td>
 
-    <tbody>
-        @foreach (var reservation in pastReservations)
-        {
-            <tr>
-                <td>@reservation.Car?.Brand @reservation.Car?.Model</td>
-                <td>@reservation.StartDate.ToShortDateString()</td>
-                <td>@reservation.EndDate.ToShortDateString()</td>
-                <td>@reservation.TotalPrice €</td>
-                <td>@reservation.PaymentMethod</td>
+                            <td>
+                                @reservation.StartDate.ToShortDateString()
+                            </td>
 
-                <td>
-                    <a asp-action="Details"
-                       asp-route-id="@reservation.Id"
-                       class="btn btn-info">
-                        Details
-                    </a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                            <td>
+                                @reservation.EndDate.ToShortDateString()
+                            </td>
+
+                            <td class="fw-bold text-success">
+                                €@reservation.TotalPrice
+                            </td>
+
+                            <td>
+                                @reservation.PaymentMethod
+                            </td>
+
+                            <td>
+
+                                <a asp-action="Details"
+                                   asp-route-id="@reservation.Id"
+                                   class="btn btn-info btn-sm">
+                                    Details
+                                </a>
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <!-- Upcoming Reservations -->
+
+    <div class="card border-0 shadow mb-5">
+
+        <div class="card-header bg-primary text-white">
+
+            <h4 class="mb-0">
+                📅 Upcoming Reservations
+            </h4>
+
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-hover align-middle">
+
+                <thead>
+                    <tr>
+                        <th>Car</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Total Price</th>
+                        <th>Payment Method</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach (var reservation in upcomingReservations)
+                    {
+                        <tr>
+
+                            <td>
+                                <strong>
+                                    @reservation.Car?.Brand
+                                    @reservation.Car?.Model
+                                </strong>
+                            </td>
+
+                            <td>
+                                @reservation.StartDate.ToShortDateString()
+                            </td>
+
+                            <td>
+                                @reservation.EndDate.ToShortDateString()
+                            </td>
+
+                            <td class="fw-bold text-success">
+                                €@reservation.TotalPrice
+                            </td>
+
+                            <td>
+                                @reservation.PaymentMethod
+                            </td>
+
+                            <td>
+
+                                <a asp-action="Details"
+                                   asp-route-id="@reservation.Id"
+                                   class="btn btn-info btn-sm">
+                                    Details
+                                </a>
+
+                                <a asp-action="Edit"
+                                   asp-route-id="@reservation.Id"
+                                   class="btn btn-warning btn-sm">
+                                    Edit
+                                </a>
+
+                                <a asp-action="Delete"
+                                   asp-route-id="@reservation.Id"
+                                   class="btn btn-danger btn-sm">
+                                    Cancel
+                                </a>
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <!-- Past Reservations -->
+
+    <div class="card border-0 shadow">
+
+        <div class="card-header bg-secondary text-white">
+
+            <h4 class="mb-0">
+                📚 Past Reservations
+            </h4>
+
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-hover align-middle">
+
+                <thead>
+                    <tr>
+                        <th>Car</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Total Price</th>
+                        <th>Payment Method</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach (var reservation in pastReservations)
+                    {
+                        <tr>
+
+                            <td>
+                                <strong>
+                                    @reservation.Car?.Brand
+                                    @reservation.Car?.Model
+                                </strong>
+                            </td>
+
+                            <td>
+                                @reservation.StartDate.ToShortDateString()
+                            </td>
+
+                            <td>
+                                @reservation.EndDate.ToShortDateString()
+                            </td>
+
+                            <td class="fw-bold text-success">
+                                €@reservation.TotalPrice
+                            </td>
+
+                            <td>
+                                @reservation.PaymentMethod
+                            </td>
+
+                            <td>
+
+                                <a asp-action="Details"
+                                   asp-route-id="@reservation.Id"
+                                   class="btn btn-info btn-sm">
+                                    Details
+                                </a>
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>

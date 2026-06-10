@@ -1,49 +1,142 @@
-﻿@model CarRentalSystem.Models.Car
+﻿
+@model CarRentalSystem.Models.Car
 
-<h2>Edit Car</h2>
+@{
+    ViewData["Title"] = "Edit Car";
+}
 
-<form asp-action="Edit" method="post">
+<div class="container">
 
-    <input asp-for="Id" type="hidden" />
+    <div class="row justify-content-center">
 
-    <div>
-        <label asp-for="Brand"></label>
-        <input asp-for="Brand" />
+        <div class="col-md-8">
+
+            <div class="card border-0 shadow-lg rounded-4">
+
+                <div class="card-header bg-warning">
+
+                    <h3 class="mb-0">
+                        ✏️ Edit Car
+                    </h3>
+
+                </div>
+
+                <div class="card-body p-4">
+
+                    <form asp-action="Edit" method="post">
+
+                        <input asp-for="Id" type="hidden" />
+
+                        <div class="row">
+
+                            <div class="col-md-6 mb-3">
+
+                                <label asp-for="Brand"
+                                       class="form-label">
+                                </label>
+
+                                <input asp-for="Brand"
+                                       class="form-control" />
+
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+
+                                <label asp-for="Model"
+                                       class="form-label">
+                                </label>
+
+                                <input asp-for="Model"
+                                       class="form-control" />
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-6 mb-3">
+
+                                <label asp-for="Year"
+                                       class="form-label">
+                                </label>
+
+                                <input asp-for="Year"
+                                       class="form-control" />
+
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+
+                                <label asp-for="PricePerDay"
+                                       class="form-label">
+                                </label>
+
+                                <input asp-for="PricePerDay"
+                                       class="form-control" />
+
+                            </div>
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label asp-for="ImageUrl"
+                                   class="form-label">
+                            </label>
+
+                            <input asp-for="ImageUrl"
+                                   class="form-control" />
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label asp-for="CategoryId"
+                                   class="form-label">
+                            </label>
+
+                            <select asp-for="CategoryId"
+                                    asp-items="ViewBag.Categories"
+                                    class="form-select">
+                            </select>
+
+                        </div>
+
+                        <div class="form-check mb-4">
+
+                            <input asp-for="IsAvailable"
+                                   class="form-check-input" />
+
+                            <label asp-for="IsAvailable"
+                                   class="form-check-label">
+                            </label>
+
+                        </div>
+
+                        <div class="d-flex gap-2">
+
+                            <button type="submit"
+                                    class="btn btn-warning">
+                                Save Changes
+                            </button>
+
+                            <a asp-action="Index"
+                               class="btn btn-secondary">
+                                Back
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
-    <div>
-        <label asp-for="Model"></label>
-        <input asp-for="Model" />
-    </div>
+</div>
 
-    <div>
-        <label asp-for="Year"></label>
-        <input asp-for="Year" />
-    </div>
-
-    <div>
-        <label asp-for="PricePerDay"></label>
-        <input asp-for="PricePerDay" />
-    </div>
-
-    <div>
-        <label asp-for="ImageUrl"></label>
-        <input asp-for="ImageUrl" />
-    </div>
-
-    <div>
-        <label asp-for="CategoryId"></label>
-        <select asp-for="CategoryId" asp-items="ViewBag.Categories">
-        </select>
-    </div>
-
-    <div>
-        <label asp-for="IsAvailable"></label>
-        <input asp-for="IsAvailable" type="checkbox" />
-    </div>
-
-    <button type="submit">Save</button>
-
-</form>
-
-<a asp-action="Index">Back</a>

@@ -1,35 +1,123 @@
 ﻿@model CarRentalSystem.Models.Payment
 
-<h2>Delete Payment</h2>
+@{
+    ViewData["Title"] = "Delete Payment";
+}
 
-<p>
-    Are you sure you want to delete this payment?
-</p>
+<div class="container">
 
-<div>
-    <strong>Payment Method:</strong>
-    @Model.PaymentMethod
+    <div class="row justify-content-center">
+
+        <div class="col-md-7">
+
+            <div class="card border-0 shadow-lg rounded-4">
+
+                <div class="card-header bg-danger text-white">
+
+                    <h3 class="mb-0">
+                        🗑️ Delete Payment
+                    </h3>
+
+                </div>
+
+                <div class="card-body p-4">
+
+                    <div class="alert alert-danger">
+
+                        <strong>
+                            Warning!
+                        </strong>
+
+                        This payment will be permanently deleted.
+
+                    </div>
+
+                    <div class="row mb-4">
+
+                        <div class="col-md-6">
+
+                            <h6 class="text-muted">
+                                Payment Method
+                            </h6>
+
+                            <span class="badge bg-primary fs-6">
+                                @Model.PaymentMethod
+                            </span>
+
+                        </div>
+
+                        <div class="col-md-6 text-md-end">
+
+                            <h6 class="text-muted">
+                                Payment ID
+                            </h6>
+
+                            <h4>
+                                #@Model.Id
+                            </h4>
+
+                        </div>
+
+                    </div>
+
+                    <hr />
+
+                    <div class="row mb-4">
+
+                        <div class="col-md-6">
+
+                            <h6 class="text-muted">
+                                Amount
+                            </h6>
+
+                            <h2 class="text-success fw-bold">
+                                €@Model.Amount
+                            </h2>
+
+                        </div>
+
+                        <div class="col-md-6 text-md-end">
+
+                            <h6 class="text-muted">
+                                Payment Date
+                            </h6>
+
+                            <h5>
+                                @Model.PaymentDate.ToString("dd/MM/yyyy HH:mm")
+                            </h5>
+
+                        </div>
+
+                    </div>
+
+                    <form asp-action="Delete">
+
+                        <input asp-for="Id"
+                               type="hidden" />
+
+                        <div class="d-flex gap-2">
+
+                            <button type="submit"
+                                    class="btn btn-danger">
+                                Delete Payment
+                            </button>
+
+                            <a asp-action="Index"
+                               class="btn btn-secondary">
+                                Cancel
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
 
-<br />
-
-<div>
-    <strong>Amount:</strong>
-    @Model.Amount
-</div>
-
-<br />
-
-<form asp-action="Delete">
-
-    <input type="hidden" asp-for="Id" />
-
-    <button type="submit" class="btn btn-danger">
-        Delete
-    </button>
-
-    <a asp-action="Index" class="btn btn-secondary">
-        Cancel
-    </a>
-
-</form>
